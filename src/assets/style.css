@@ -59,7 +59,7 @@ header {
   outline: none;
   flex: 1;
 }
-.header-main-top form > i,
+.header-main-top form > svg,
 .header-main-top form > button {
   position: absolute;
   font-size: 1.2rem;
@@ -126,13 +126,15 @@ header {
   justify-content: center;
   align-items: center;
   z-index: 1;
+  width: 20px;
+  height: 20px;
 }
-.header-main-bottom i:first-child {
-  top: 0;
+.header-main-bottom svg:first-child {
+  top: 5px;
   left: 0;
 }
-.header-main-bottom i:last-child {
-  top: 0;
+.header-main-bottom svg:last-child {
+  top: 5px;
   right: 0;
 }
 
@@ -161,7 +163,7 @@ header {
   padding: 10px 0;
   position: relative;
 }
-.category-item i:first-child {
+.category-item svg:first-child {
   font-size: 1.2rem;
   width: 40px;
   text-align: center;
@@ -169,7 +171,7 @@ header {
 .category-item span {
   flex: 1;
 }
-.category-item i:nth-child(3) {
+.category-item svg:nth-child(3) {
   font-size: 1.1rem;
   padding-right: 10px;
   display: none;
@@ -180,7 +182,7 @@ header {
 .category-item:hover span {
   text-decoration: underline;
 }
-.category-item:hover i:nth-child(3) {
+.category-item:hover svg:nth-child(3) {
   display: block;
 }
 .category-item:hover .category-sub-item {
@@ -201,7 +203,7 @@ header {
 .category-sub-item ul {
   width: 156px;
 }
-.category-sub-item ul lsvg {
+.category-sub-item ul li {
   padding: 10px 0;
 }
 .category-sub-item ul li:hover a {
