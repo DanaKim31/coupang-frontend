@@ -11,10 +11,19 @@ import {
 import CategoryItem from "./CategoryItem";
 import { getCategories } from "../api/product"; // List로 담겨있기 때문에 반복문 돌려야 함 > CategoryItem.js에 담으면 안됨
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux"; // useDispatch : 액션함수 쓰기 위함
+import { userSave, userLogout } from "../store/user";
 
 const Header = () => {
+  const dispatch = useDispatch();
+
   const [categories, setCategories] = useState([]);
   const [active, setActive] = useState(true);
+
+  // 로그인 관련
+  const user = useSelector((state) => {
+    return state.user;
+  });
 
   const categoriesAPI = async () => {
     const response = await getCategories();
@@ -23,7 +32,24 @@ const Header = () => {
 
   useEffect(() => {
     categoriesAPI();
+    const token = localStorage.getItem("token");
+    if (token !== null) {
+      dispatch(userSave(JSON.parse(localStorage.getItem("user"))));
+    }
   }, []);
+
+  // useEffect(() => {
+  //   console.log(user);
+  // }, [user]);
+
+  // 로그아웃 : localStorage 비우기 + 만들어둔 userLogout 실행
+  const logout = (e) => {
+    // a 태그의 원래 기능(지정 페이지로 이동)을 막고 시작
+    e.preventDefault();
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    dispatch(userLogout());
+  };
 
   return (
     <>
@@ -33,8 +59,18 @@ const Header = () => {
           <a href="#">입점신청</a>
         </div>
         <div className="tob-bar-right">
-          <a href="#">로그인</a>
-          <a href="#">회원가입</a>
+          {/* 배열이 비어있지 않은 경우, 로그인이 된 경우 */}
+          {Object.keys(user).length !== 0 ? (
+            <a href="" onClick={logout}>
+              로그아웃
+            </a>
+          ) : (
+            <>
+              <a href="login">로그인</a>
+              <a href="#">회원가입</a>
+            </>
+          )}
+
           <a href="#">고객센터</a>
         </div>
       </div>
